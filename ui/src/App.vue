@@ -1,10 +1,12 @@
 <template>
   <div id="app">
-    <b-navbar>
+    <b-navbar class="header">
       <template slot="brand">
         <b-navbar-item class="logo" tag="router-link" :to="{ path: '/' }">
           <img class="logo__img" src="@/assets/images/logo.png" />Localizer
         </b-navbar-item>
+        <b-navbar-item tag="router-link" to="/branches">Branches</b-navbar-item>
+        <b-navbar-item tag="router-link" to="/releases">Releases</b-navbar-item>
       </template>
       <template slot="end">
         <b-navbar-dropdown label="User" right>
@@ -16,17 +18,16 @@
 
     <transition name="fade" mode="out-in">
       <div class="wrapper" :class="pageClass">
-        <b-navbar
-          class="navbar-secondary navbar-warning" v-if="isEditMode"
-        >
+        <b-navbar class="navbar-secondary navbar-warning" v-if="isEditMode">
           <template slot="brand">
             <div style="display:flex;align-items:center;">
-              <p class="fs-st" v-if="isEditMode">
-                You have some unpublished changes which are saved as draft.
-              </p>
+              <p
+                class="fs-st"
+                v-if="isEditMode"
+              >You have some unpublished changes which are saved as draft.</p>
               <!-- <p class="fs-st" v-else>
                 You are in View-only mode. <a>Click here to edit</a>
-              </p> -->
+              </p>-->
             </div>
           </template>
           <template slot="end" v-if="isEditMode">
@@ -54,7 +55,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('mockInit');
+    this.$store.dispatch('init');
   }
 }
 </script>
@@ -66,5 +67,15 @@ export default {
   flex-direction: column;
   height: 100vh;
   overflow: hidden;
+}
+.navbar-item {
+  padding-left: 0;
+  &:not(:first-child) {
+    padding-left: 20px;
+  }
+}
+
+.header {
+  height: 6em;
 }
 </style>
